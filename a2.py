@@ -8,6 +8,7 @@ def get_length(dna):
     >>> get_length('ATCG')
     4
     """
+    return len(dna);
 
 
 def is_longer(dna1, dna2):
@@ -21,7 +22,7 @@ def is_longer(dna1, dna2):
     >>> is_longer('ATCG', 'ATCGGA')
     False
     """
-
+    return len(dna1) > len(dna2)
 
 def count_nucleotides(dna, nucleotide):
     """ (str, str) -> int
@@ -33,7 +34,7 @@ def count_nucleotides(dna, nucleotide):
     >>> count_nucleotides('ATCTA', 'G')
     0
     """
-
+    return dna.count(nucleotide)
 
 def contains_sequence(dna1, dna2):
     """ (str, str) -> bool
@@ -47,3 +48,23 @@ def contains_sequence(dna1, dna2):
     False
 
     """
+    return dna1.find(dna2)
+
+
+def is_valid_sequence(sequence):
+    return count_nucleotides(sequence, 'A') + count_nucleotides(sequence, 'C') +  count_nucleotides(sequence, 'T') + count_nucleotides(sequence, 'G') == get_length(sequence)
+
+def insert_sequence(dna1, dna2, pos):
+    return dna1[:pos] + dna2 + dna1[pos:]
+
+
+def get_complement(dna):
+    return {
+        'A' : 'T',
+        'T' : 'A',
+        'C' : 'G',
+        'G' : 'C',
+    }[dna]
+
+def get_complementary_sequence(dna):
+    return dna[::-1]
