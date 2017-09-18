@@ -115,9 +115,9 @@ def word_score(word):
     >>> word_score('DRUDGERY')
     16
     """
-    if (len(word) < 3) return 0
-    if (len(word) < 7) return len(word) * 1
-    if (len(word) < 10) return len(word) * 2
+    if (len(word) < 3): return 0
+    if (len(word) < 7): return len(word) * 1
+    if (len(word) < 10): return len(word) * 2
     return len(word) * 3
 
 def update_score(player_info, word):
@@ -128,7 +128,7 @@ def update_score(player_info, word):
 
     >>> update_score(['Jonathan', 4], 'ANT')
     """
-
+    player_info[1] = player_info[1] + word_score(word)
 
 def num_words_on_board(board, words):
     """ (list of list of str, list of str) -> int
@@ -138,7 +138,10 @@ def num_words_on_board(board, words):
     >>> num_words_on_board([['A', 'N', 'T', 'T'], ['X', 'S', 'O', 'B']], ['ANT', 'BOX', 'SOB', 'TO'])
     3
     """
-
+    res = 0
+    for i in range(len(words)):
+        if (board_contains_word(board, words[i])): res = res + 1
+    return res      
 
 def read_words(words_file):
     """ (file open for reading) -> list of str
@@ -149,11 +152,25 @@ def read_words(words_file):
     Precondition: Each line of the file contains a word in uppercase characters
     from the standard English alphabet.
     """
-
-
+    res = []
+    file = open(words_file, 'r')
+    for line in file:
+        res.append(line)
+    file.close()
+    return res
+    
 def read_board(board_file):
     """ (file open for reading) -> list of list of str
 
     Return a board read from open file board_file. The board file will contain
     one row of the board per line. Newlines are not included in the board.
     """
+    res = []
+    file = open(board_file, 'r')
+    for line in file:
+        temp = []
+        for word in line:
+            temp.append(word)
+        res.append(temp)
+    file.close()
+    return res
